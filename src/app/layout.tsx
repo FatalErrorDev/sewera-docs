@@ -18,7 +18,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Claude Docs",
+  title: "Sewera Docs",
   description:
     "Practical guides for building AI-powered support systems with Claude.",
 };
