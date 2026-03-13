@@ -56,7 +56,7 @@ export default async function DocPage({ params }: Props) {
             {article.title}
           </h1>
           {article.description && (
-            <p style={{ marginTop: "8px", color: "var(--text-secondary)", fontFamily: "var(--font-serif)" }}>
+            <p style={{ marginTop: "8px", color: "var(--text-secondary)", fontFamily: "var(--font-sans)" }}>
               {article.description}
             </p>
           )}

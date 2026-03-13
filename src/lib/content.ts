@@ -20,6 +20,14 @@ export function formatName(raw: string): string {
     .replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
+function loadConfig(): { categoryOrder: string[] } {
+  const configPath = path.join(contentDir, "_config.json");
+  if (fs.existsSync(configPath)) {
+    return JSON.parse(fs.readFileSync(configPath, "utf-8"));
+  }
+  return { categoryOrder: [] };
+}
+
 export function getAllCategories(): Category[] {
   const entries = fs.readdirSync(contentDir, { withFileTypes: true });
   const categories: Category[] = entries
@@ -27,8 +35,18 @@ export function getAllCategories(): Category[] {
     .map((dir) => {
       const articles = getArticlesInCategory(dir.name);
       return { name: dir.name, articles };
-    })
-    .sort((a, b) => a.name.localeCompare(b.name));
+    });
+
+  const { categoryOrder } = loadConfig();
+  categories.sort((a, b) => {
+    const ai = categoryOrder.indexOf(a.name);
+    const bi = categoryOrder.indexOf(b.name);
+    const oa = ai === -1 ? Infinity : ai;
+    const ob = bi === -1 ? Infinity : bi;
+    if (oa !== ob) return oa - ob;
+    return a.name.localeCompare(b.name);
+  });
+
   return categories;
 }
 

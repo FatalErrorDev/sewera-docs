@@ -46,7 +46,7 @@ export function TableOfContents({ headings }: { headings: Heading[] }) {
           fontSize: "10px",
           textTransform: "uppercase",
           letterSpacing: "0.1em",
-          color: "var(--text-faint)",
+          color: "var(--text-muted)",
           marginBottom: "12px",
         }}
       >
@@ -67,7 +67,7 @@ export function TableOfContents({ headings }: { headings: Heading[] }) {
                   display: "block",
                   fontFamily: "var(--font-mono)",
                   fontSize: "11px",
-                  color: active ? "var(--accent)" : "var(--text-faint)",
+                  color: active ? "var(--accent)" : "var(--text-secondary)",
                   padding: "4px 8px",
                   paddingLeft: h.level === 3 ? "16px" : "8px",
                   textDecoration: "none",

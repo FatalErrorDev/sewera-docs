@@ -34,7 +34,7 @@ export function Sidebar({
               fontFamily: "var(--font-mono)",
               fontSize: "10px",
               fontWeight: 500,
-              color: "var(--text-faint)",
+              color: "var(--text-muted)",
               letterSpacing: "0.12em",
               textTransform: "uppercase",
               padding: "0 20px",
@@ -56,7 +56,7 @@ export function Sidebar({
                       display: "block",
                       fontFamily: "var(--font-mono)",
                       fontSize: "12px",
-                      color: active ? "var(--accent)" : "var(--text-muted)",
+                      color: active ? "var(--accent)" : "var(--text-secondary)",
                       padding: active ? "6px 18px 6px 18px" : "6px 20px",
                       textDecoration: "none",
                       borderLeft: active
@@ -73,7 +73,7 @@ export function Sidebar({
                     }}
                     onMouseLeave={(e) => {
                       if (!active) {
-                        e.currentTarget.style.color = "var(--text-muted)";
+                        e.currentTarget.style.color = "var(--text-secondary)";
                         e.currentTarget.style.background = "transparent";
                       }
                     }}

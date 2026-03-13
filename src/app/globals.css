@@ -21,7 +21,7 @@
   --color-code-border: var(--code-border);
   --color-code-text: var(--code-text);
   --font-mono: var(--font-mono-var, "JetBrains Mono", monospace);
-  --font-serif: var(--font-serif-var, "Instrument Serif", serif);
+  --font-sans: var(--font-sans-var, "Inter", sans-serif);
 }
 
 :root {
@@ -38,8 +38,8 @@
   /* Text */
   --text-primary: #141210;
   --text-secondary: #3D3A35;
-  --text-muted: #7A7570;
-  --text-faint: #A8A49E;
+  --text-muted: #635E58;
+  --text-faint: #8A857E;
 
   /* Accent */
   --accent: #00C9A7;
@@ -57,14 +57,14 @@
   --bg-surface: #0F0F0E;
   --bg-elevated: #161614;
 
-  --border-subtle: #ffffff06;
-  --border-default: #ffffff0f;
-  --border-strong: #ffffff1a;
+  --border-subtle: #ffffff1a;
+  --border-default: #ffffff18;
+  --border-strong: #ffffff28;
 
   --text-primary: #F0EDE8;
-  --text-secondary: #B8B4AE;
-  --text-muted: #6B6760;
-  --text-faint: #3D3A36;
+  --text-secondary: #C8C4BE;
+  --text-muted: #A09A93;
+  --text-faint: #787068;
 
   --accent: #00FFD1;
   --accent-dim: #00FFD115;
@@ -94,11 +94,11 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Article body switches to serif */
+/* Article body switches to readable sans */
 article {
-  font-family: var(--font-serif);
-  font-size: 17px;
-  line-height: 1.8;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.75;
 }
 
 /* Code blocks */

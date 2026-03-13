@@ -12,7 +12,7 @@ export function ArticleRenderer({ contentHtml }: { contentHtml: string }) {
       ref={ref}
       className="prose dark:prose-invert max-w-none"
       style={{
-        fontFamily: "var(--font-serif)",
+        fontFamily: "var(--font-sans)",
         fontSize: "17px",
         lineHeight: 1.8,
         color: "var(--text-primary)",

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { JetBrains_Mono, Instrument_Serif } from "next/font/google";
+import { JetBrains_Mono, Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { Shell } from "@/components/Shell";
@@ -11,10 +11,10 @@ const jetbrainsMono = JetBrains_Mono({
   weight: ["300", "400", "500", "700"],
 });
 
-const instrumentSerif = Instrument_Serif({
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-serif",
-  weight: ["400"],
+  variable: "--font-sans",
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -34,7 +34,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${jetbrainsMono.variable} ${instrumentSerif.variable}`}
+      className={`${jetbrainsMono.variable} ${inter.variable}`}
     >
       <body>
         <ThemeProvider>
