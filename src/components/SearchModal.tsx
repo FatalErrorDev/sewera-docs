@@ -28,7 +28,7 @@ export function SearchModal({
 
   useEffect(() => {
     if (open && records.length === 0) {
-      fetch("/api/search-index")
+      fetch(`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/search-index.json`)
         .then((r) => r.json())
         .then((data) => setRecords(data));
     }

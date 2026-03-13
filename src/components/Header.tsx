@@ -1,6 +1,9 @@
 "use client";
 
+import Link from "next/link";
 import { ThemeToggle } from "./ThemeToggle";
+
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 export function Header({
   onMenuToggle,
@@ -19,7 +22,7 @@ export function Header({
         padding: "0 24px",
       }}
     >
-      <a
+      <Link
         href="/"
         onClick={(e) => {
           if (window.innerWidth < 1024) {
@@ -35,7 +38,7 @@ export function Header({
         }}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/favicon.ico" alt="" width={20} height={20} style={{ display: "block" }} />
+        <img src={`${basePath}/favicon.ico`} alt="" width={20} height={20} style={{ display: "block" }} />
         <span
           style={{
             fontSize: "13px",
@@ -48,7 +51,7 @@ export function Header({
         >
           SEWERA DOCS
         </span>
-      </a>
+      </Link>
 
       <div style={{ display: "flex", alignItems: "center" }}>
         {/* Search button */}

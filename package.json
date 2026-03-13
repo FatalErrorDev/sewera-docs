@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "prebuild": "node scripts/generate-search-index.mjs",
+    "build": "NEXT_PUBLIC_BASE_PATH=/sewera-docs next build",
     "start": "next start",
     "lint": "eslint"
   },
