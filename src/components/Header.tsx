@@ -10,11 +10,30 @@ export function Header({
   onSearchOpen: () => void;
 }) {
   return (
-    <header className="relative sticky top-0 z-30 flex h-14 items-center gap-4 border-b border-border bg-background/80 px-4 backdrop-blur-md font-sans">
+    <header
+      className="sticky top-0 z-30 flex items-center justify-between font-mono"
+      style={{
+        height: "48px",
+        background: "var(--bg-base)",
+        borderBottom: "1px solid var(--border-default)",
+        padding: "0 24px",
+      }}
+    >
       {/* Mobile hamburger */}
       <button
         onClick={onMenuToggle}
-        className="flex h-9 w-9 items-center justify-center rounded-md text-text-muted hover:bg-surface hover:text-text-primary lg:hidden"
+        className="lg:hidden"
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          width: "32px",
+          height: "32px",
+          color: "var(--text-muted)",
+          background: "none",
+          border: "none",
+          cursor: "pointer",
+        }}
         aria-label="Toggle menu"
       >
         <svg
@@ -34,20 +53,43 @@ export function Header({
       </button>
 
       {/* Logo */}
-      <a href="/" className="text-sm font-bold tracking-tight text-accent">
-        Sewera Docs
+      <a
+        href="/"
+        style={{
+          fontSize: "13px",
+          letterSpacing: "0.05em",
+          textTransform: "uppercase",
+          color: "var(--text-primary)",
+          textDecoration: "none",
+          fontFamily: "var(--font-mono)",
+          fontWeight: 500,
+        }}
+      >
+        SEWERA DOCS
       </a>
 
-      <div className="flex-1" />
+      <div style={{ flex: 1 }} />
 
       {/* Search button */}
       <button
         onClick={onSearchOpen}
-        className="flex h-9 items-center gap-2 rounded-md border border-border px-3 text-sm text-text-muted transition-colors hover:border-text-muted hover:text-text-secondary"
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          background: "none",
+          border: "none",
+          color: "var(--text-muted)",
+          cursor: "pointer",
+          padding: "4px",
+          marginRight: "8px",
+        }}
+        className="hover:!text-[var(--text-primary)]"
+        aria-label="Search"
       >
         <svg
-          width="16"
-          height="16"
+          width="20"
+          height="20"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -58,16 +100,9 @@ export function Header({
           <circle cx="11" cy="11" r="8" />
           <line x1="21" y1="21" x2="16.65" y2="16.65" />
         </svg>
-        <span className="hidden sm:inline">Search...</span>
-        <kbd className="hidden rounded border border-border px-1.5 py-0.5 text-xs text-text-muted sm:inline">
-          Ctrl K
-        </kbd>
       </button>
 
       <ThemeToggle />
-
-      {/* Decorative gradient line */}
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
     </header>
   );
 }

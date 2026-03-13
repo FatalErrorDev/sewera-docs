@@ -42,8 +42,8 @@ export function Shell({
         onClose={() => setSidebarOpen(false)}
       />
       <SearchModal open={searchOpen} onClose={closeSearch} />
-      <main className="lg:pl-64">
-        <div className="mx-auto max-w-[720px] px-6 py-16">{children}</div>
+      <main className="lg:pl-[240px]">
+        {children}
       </main>
     </>
   );

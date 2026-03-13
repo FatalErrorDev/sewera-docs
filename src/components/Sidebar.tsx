@@ -17,13 +17,33 @@ export function Sidebar({
   const pathname = usePathname();
 
   const nav = (
-    <nav className="flex flex-col gap-6 p-6 pt-4 font-sans">
-      {categories.map((cat) => (
+    <nav style={{ paddingTop: "24px" }}>
+      {categories.map((cat, catIndex) => (
         <div key={cat.name}>
-          <p className="mb-2 text-xs font-medium uppercase tracking-wider text-accent/70">
+          {catIndex > 0 && (
+            <div
+              style={{
+                height: "1px",
+                background: "var(--border-subtle)",
+                margin: "12px 0",
+              }}
+            />
+          )}
+          <p
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: "10px",
+              fontWeight: 500,
+              color: "var(--text-faint)",
+              letterSpacing: "0.12em",
+              textTransform: "uppercase",
+              padding: "0 20px",
+              marginBottom: "4px",
+            }}
+          >
             {formatName(cat.name)}
           </p>
-          <ul className="space-y-0.5">
+          <ul style={{ listStyle: "none" }}>
             {cat.articles.map((article) => {
               const href = `/docs/${article.slug.join("/")}`;
               const active = pathname === href;
@@ -32,11 +52,31 @@ export function Sidebar({
                   <Link
                     href={href}
                     onClick={onClose}
-                    className={`block rounded-md px-3 py-1.5 text-sm transition-colors ${
-                      active
-                        ? "border-l-2 border-accent bg-accent/12 text-accent font-medium"
-                        : "text-text-secondary hover:bg-surface hover:text-text-primary"
-                    }`}
+                    style={{
+                      display: "block",
+                      fontFamily: "var(--font-mono)",
+                      fontSize: "12px",
+                      color: active ? "var(--accent)" : "var(--text-muted)",
+                      padding: active ? "6px 18px 6px 18px" : "6px 20px",
+                      textDecoration: "none",
+                      borderLeft: active
+                        ? "2px solid var(--accent)"
+                        : "2px solid transparent",
+                      background: active ? "var(--accent-dim)" : "transparent",
+                      transition: "color 0.15s, background 0.15s",
+                    }}
+                    onMouseEnter={(e) => {
+                      if (!active) {
+                        e.currentTarget.style.color = "var(--text-primary)";
+                        e.currentTarget.style.background = "var(--bg-elevated)";
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (!active) {
+                        e.currentTarget.style.color = "var(--text-muted)";
+                        e.currentTarget.style.background = "transparent";
+                      }
+                    }}
                   >
                     {article.title}
                   </Link>
@@ -52,7 +92,19 @@ export function Sidebar({
   return (
     <>
       {/* Desktop sidebar */}
-      <aside className="hidden lg:block fixed left-0 top-14 bottom-0 w-64 overflow-y-auto border-r border-border bg-surface">
+      <aside
+        className="hidden lg:block"
+        style={{
+          position: "fixed",
+          left: 0,
+          top: "48px",
+          bottom: 0,
+          width: "240px",
+          overflowY: "auto",
+          background: "var(--bg-surface)",
+          borderRight: "1px solid var(--border-default)",
+        }}
+      >
         {nav}
       </aside>
 
@@ -60,12 +112,36 @@ export function Sidebar({
       {open && (
         <div className="fixed inset-0 z-40 lg:hidden">
           <div
-            className="absolute inset-0 bg-black/40"
+            style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.85)" }}
             onClick={onClose}
           />
-          <aside className="absolute left-0 top-0 bottom-0 w-64 overflow-y-auto bg-background shadow-xl">
-            <div className="h-14 flex items-center px-6 border-b border-border">
-              <span className="font-semibold text-text-primary font-sans">Sewera Docs</span>
+          <aside
+            style={{
+              position: "absolute",
+              left: 0,
+              top: 0,
+              bottom: 0,
+              width: "240px",
+              overflowY: "auto",
+              background: "var(--bg-surface)",
+            }}
+          >
+            <div
+              style={{
+                height: "48px",
+                display: "flex",
+                alignItems: "center",
+                padding: "0 20px",
+                borderBottom: "1px solid var(--border-default)",
+                fontFamily: "var(--font-mono)",
+                fontSize: "13px",
+                letterSpacing: "0.05em",
+                textTransform: "uppercase",
+                color: "var(--text-primary)",
+                fontWeight: 500,
+              }}
+            >
+              SEWERA DOCS
             </div>
             {nav}
           </aside>

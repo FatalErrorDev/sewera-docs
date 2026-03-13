@@ -7,68 +7,147 @@ export default function HomePage() {
   const firstArticle = categories[0]?.articles[0];
 
   return (
-    <div className="space-y-16">
+    <main>
       {/* Hero */}
-      <section className="pt-8 pb-4">
-        <h1 className="text-4xl font-bold tracking-tight sm:text-5xl bg-gradient-to-r from-[#03256c] to-[#1768ac] bg-clip-text text-transparent dark:from-[#06bee1] dark:to-white">
-          Claude Documentation
+      <section
+        className="hero-grid-bg"
+        style={{
+          minHeight: "calc(100vh - 48px)",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          padding: "64px",
+          position: "relative",
+          borderBottom: "1px solid var(--border-default)",
+        }}
+      >
+        {/* Top-left label */}
+        <span
+          style={{
+            position: "absolute",
+            top: "24px",
+            left: "24px",
+            fontFamily: "var(--font-mono)",
+            fontSize: "12px",
+            color: "var(--text-faint)",
+          }}
+        >
+          {"// sewera documentation"}
+        </span>
+
+        {/* Hero text */}
+        <h1
+          style={{
+            fontFamily: "var(--font-mono)",
+            fontWeight: 700,
+            fontSize: "clamp(2.5rem, 6vw, 5rem)",
+            lineHeight: 1.05,
+            letterSpacing: "-0.02em",
+            color: "var(--text-primary)",
+          }}
+        >
+          THE FUTURE
+          <br />
+          OF BUILDING
+          <br />
+          IS HUMAN +
+          <br />
+          AI<span className="cursor-blink" style={{ color: "var(--accent)" }}>_</span>
         </h1>
-        <p className="mt-4 max-w-xl text-lg leading-relaxed text-text-secondary">
-          Practical guides for building AI-powered support systems with Claude,
-          Lovable, and Claude Code.
+
+        {/* Subtitle */}
+        <p
+          style={{
+            fontFamily: "var(--font-mono)",
+            fontSize: "14px",
+            color: "var(--text-muted)",
+            marginTop: "24px",
+          }}
+        >
+          {"→ practical guides for claude, lovable & claude code"}
         </p>
+
+        {/* CTA */}
         {firstArticle && (
           <Link
             href={`/docs/${firstArticle.slug.join("/")}`}
-            className="mt-6 inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-accent-hover shadow-lg shadow-accent/25"
+            className="cta-button"
           >
-            Get started
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <line x1="5" y1="12" x2="19" y2="12" />
-              <polyline points="12 5 19 12 12 19" />
-            </svg>
+            Get Started
           </Link>
         )}
       </section>
 
-      {/* Category cards */}
-      <section>
-        <h2 className="mb-6 text-lg font-semibold text-text-primary">Browse by category</h2>
-        <div className="grid gap-4 sm:grid-cols-2">
+      {/* Category cards grid */}
+      <section style={{ padding: "80px 64px" }}>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+            gap: "1px",
+            background: "var(--border-default)",
+          }}
+        >
           {categories.map((cat) => {
             const first = cat.articles[0];
             return (
               <Link
                 key={cat.name}
                 href={first ? `/docs/${first.slug.join("/")}` : "/"}
-                className="group rounded-xl border border-border p-6 transition-all hover:border-accent/60 hover:bg-surface hover:shadow-lg hover:shadow-accent/10"
+                className="category-card"
               >
-                <h3 className="font-semibold text-text-primary transition-colors group-hover:text-accent">
+                {/* Category name */}
+                <p
+                  style={{
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "11px",
+                    fontWeight: 500,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.1em",
+                    color: "var(--accent)",
+                  }}
+                >
                   {formatName(cat.name)}
-                </h3>
-                <p className="mt-1 text-sm text-text-muted">
-                  {cat.articles.length} article
-                  {cat.articles.length !== 1 && "s"}
                 </p>
-                {first && (
-                  <p className="mt-3 text-sm text-text-muted">
-                    Start with: {first.title}
-                  </p>
-                )}
+
+                {/* Article count */}
+                <p
+                  style={{
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "3rem",
+                    fontWeight: 300,
+                    color: "var(--text-faint)",
+                    lineHeight: 1.2,
+                    margin: "8px 0",
+                  }}
+                >
+                  {String(cat.articles.length).padStart(2, "0")}
+                </p>
+
+                {/* First 3 article titles */}
+                <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+                  {cat.articles.slice(0, 3).map((article) => (
+                    <li
+                      key={article.slug.join("/")}
+                      style={{
+                        fontFamily: "var(--font-mono)",
+                        fontSize: "12px",
+                        color: "var(--text-muted)",
+                        padding: "2px 0",
+                      }}
+                    >
+                      <span style={{ color: "var(--accent)", marginRight: "6px" }}>
+                        {"→"}
+                      </span>
+                      {article.title}
+                    </li>
+                  ))}
+                </ul>
               </Link>
             );
           })}
         </div>
       </section>
-    </div>
+    </main>
   );
 }

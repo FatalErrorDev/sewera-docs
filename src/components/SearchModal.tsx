@@ -67,9 +67,6 @@ export function SearchModal({
       if ((e.metaKey || e.ctrlKey) && e.key === "k") {
         e.preventDefault();
         if (open) onClose();
-        else {
-          // parent handles opening
-        }
       }
     }
     window.addEventListener("keydown", handleKey);
@@ -92,23 +89,42 @@ export function SearchModal({
     }
   }
 
+  // Group results by category
+  const grouped: { category: string; items: { record: SearchRecord; globalIndex: number }[] }[] = [];
+  let currentCategory = "";
+  results.forEach((r, i) => {
+    if (r.category !== currentCategory) {
+      currentCategory = r.category;
+      grouped.push({ category: r.category, items: [] });
+    }
+    grouped[grouped.length - 1].items.push({ record: r, globalIndex: i });
+  });
+
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center pt-[15vh]">
-      <div className="absolute inset-0 bg-black/40" onClick={onClose} />
-      <div className="relative w-full max-w-lg rounded-xl border border-border dark:border-accent/20 bg-background shadow-2xl font-sans">
-        <div className="flex items-center gap-3 border-b border-border px-4">
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            className="shrink-0 text-text-muted"
-          >
-            <circle cx="11" cy="11" r="8" />
-            <line x1="21" y1="21" x2="16.65" y2="16.65" />
-          </svg>
+    <div
+      className="fixed inset-0 z-50 flex items-start justify-center"
+      style={{ paddingTop: "15vh" }}
+    >
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          background: "rgba(0,0,0,0.85)",
+        }}
+        onClick={onClose}
+      />
+      <div
+        style={{
+          position: "relative",
+          width: "100%",
+          maxWidth: "560px",
+          background: "var(--bg-surface)",
+          border: "1px solid var(--border-strong)",
+          borderRadius: 0,
+        }}
+      >
+        {/* Input */}
+        <div style={{ padding: "0" }}>
           <input
             ref={inputRef}
             type="text"
@@ -116,38 +132,95 @@ export function SearchModal({
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="Search documentation..."
-            className="flex-1 bg-transparent py-4 text-sm text-text-primary outline-none placeholder:text-text-muted"
+            style={{
+              width: "100%",
+              fontFamily: "var(--font-mono)",
+              fontSize: "14px",
+              background: "var(--bg-elevated)",
+              border: "none",
+              borderBottom: "1px solid var(--border-default)",
+              borderRadius: 0,
+              padding: "12px 16px",
+              color: "var(--text-primary)",
+              outline: "none",
+            }}
           />
-          <kbd
-            className="rounded border border-border px-1.5 py-0.5 text-xs text-text-muted cursor-pointer"
-            onClick={onClose}
-          >
-            Esc
-          </kbd>
         </div>
-        <div className="max-h-80 overflow-y-auto p-2">
+
+        {/* Results */}
+        <div style={{ maxHeight: "400px", overflowY: "auto" }}>
           {results.length === 0 && query && (
-            <p className="px-3 py-8 text-center text-sm text-text-muted">
+            <p
+              style={{
+                padding: "32px 16px",
+                textAlign: "center",
+                fontFamily: "var(--font-mono)",
+                fontSize: "12px",
+                color: "var(--text-muted)",
+              }}
+            >
               No results found.
             </p>
           )}
-          {results.map((r, i) => (
-            <button
-              key={r.slug.join("/")}
-              onClick={() => navigate(r)}
-              className={`w-full text-left rounded-lg px-3 py-2.5 transition-colors ${
-                i === selectedIndex
-                  ? "bg-accent/8 text-accent"
-                  : "text-text-secondary hover:bg-surface"
-              }`}
-            >
-              <div className="text-sm font-medium">{r.title}</div>
-              <div className="mt-0.5 text-xs text-text-muted">
-                {formatName(r.category)}
-                {r.description && ` — ${r.description}`}
-              </div>
-            </button>
+          {grouped.map((group) => (
+            <div key={group.category}>
+              <p
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: "10px",
+                  textTransform: "uppercase",
+                  color: "var(--text-faint)",
+                  letterSpacing: "0.1em",
+                  padding: "8px 16px 4px",
+                }}
+              >
+                {formatName(group.category)}
+              </p>
+              {group.items.map(({ record, globalIndex }) => (
+                <button
+                  key={record.slug.join("/")}
+                  onClick={() => navigate(record)}
+                  style={{
+                    display: "block",
+                    width: "100%",
+                    textAlign: "left",
+                    padding: "10px 16px",
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "12px",
+                    color:
+                      globalIndex === selectedIndex
+                        ? "var(--text-primary)"
+                        : "var(--text-secondary)",
+                    background:
+                      globalIndex === selectedIndex
+                        ? "var(--bg-elevated)"
+                        : "transparent",
+                    border: "none",
+                    borderRadius: 0,
+                    cursor: "pointer",
+                    transition: "background 0.1s, color 0.1s",
+                  }}
+                >
+                  <span style={{ color: "var(--accent)", marginRight: "6px" }}>{"→"}</span>
+                  {record.title}
+                </button>
+              ))}
+            </div>
           ))}
+        </div>
+
+        {/* Footer hint */}
+        <div
+          style={{
+            fontFamily: "var(--font-mono)",
+            fontSize: "10px",
+            color: "var(--text-faint)",
+            textAlign: "center",
+            padding: "8px",
+            borderTop: "1px solid var(--border-subtle)",
+          }}
+        >
+          {"ESC to close · ↑↓ to navigate · ENTER to open"}
         </div>
       </div>
     </div>

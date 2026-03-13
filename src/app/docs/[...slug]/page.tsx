@@ -28,21 +28,41 @@ export default async function DocPage({ params }: Props) {
   if (!article) notFound();
 
   return (
-    <div className="flex items-start gap-0">
-      <div className="min-w-0 flex-1">
-        <div className="mb-6">
-          <p className="text-sm font-medium text-accent uppercase tracking-wide">
+    <div className="flex items-start" style={{ padding: "40px 48px" }}>
+      <article className="min-w-0 flex-1" style={{ maxWidth: "72ch" }}>
+        <div style={{ marginBottom: "24px" }}>
+          <p
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: "10px",
+              fontWeight: 500,
+              textTransform: "uppercase",
+              letterSpacing: "0.1em",
+              color: "var(--accent)",
+            }}
+          >
             {formatName(article.category)}
           </p>
-          <h1 className="mt-1 text-3xl font-bold tracking-tight text-text-primary">
+          <h1
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontWeight: 500,
+              fontSize: "1.875rem",
+              letterSpacing: "-0.02em",
+              color: "var(--text-primary)",
+              marginTop: "4px",
+            }}
+          >
             {article.title}
           </h1>
           {article.description && (
-            <p className="mt-2 text-text-secondary">{article.description}</p>
+            <p style={{ marginTop: "8px", color: "var(--text-secondary)", fontFamily: "var(--font-serif)" }}>
+              {article.description}
+            </p>
           )}
         </div>
         <ArticleRenderer contentHtml={article.contentHtml} />
-      </div>
+      </article>
       <TableOfContents headings={article.headings} />
     </div>
   );

@@ -29,29 +29,57 @@ export function TableOfContents({ headings }: { headings: Heading[] }) {
   if (headings.length === 0) return null;
 
   return (
-    <nav className="hidden xl:block sticky top-24 ml-8 w-56 shrink-0 self-start font-sans">
-      <p className="mb-3 text-xs font-medium uppercase tracking-wider text-text-muted">
-        On this page
+    <nav
+      className="hidden xl:block"
+      style={{
+        position: "sticky",
+        top: "64px",
+        width: "224px",
+        flexShrink: 0,
+        alignSelf: "flex-start",
+        padding: "24px 16px",
+      }}
+    >
+      <p
+        style={{
+          fontFamily: "var(--font-mono)",
+          fontSize: "10px",
+          textTransform: "uppercase",
+          letterSpacing: "0.1em",
+          color: "var(--text-faint)",
+          marginBottom: "12px",
+        }}
+      >
+        {"// on this page"}
       </p>
-      <ul className="space-y-1.5 border-l-2 border-accent/20 pl-3 text-sm">
-        {headings.map((h) => (
-          <li key={h.id} style={{ paddingLeft: h.level === 3 ? "0.75rem" : 0 }}>
-            <a
-              href={`#${h.id}`}
-              onClick={(e) => {
-                e.preventDefault();
-                document.getElementById(h.id)?.scrollIntoView({ behavior: "smooth" });
-              }}
-              className={`block py-0.5 transition-colors ${
-                activeId === h.id
-                  ? "text-accent font-medium"
-                  : "text-text-muted hover:text-text-secondary"
-              }`}
-            >
-              {h.text}
-            </a>
-          </li>
-        ))}
+      <ul style={{ listStyle: "none", padding: 0 }}>
+        {headings.map((h) => {
+          const active = activeId === h.id;
+          return (
+            <li key={h.id}>
+              <a
+                href={`#${h.id}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById(h.id)?.scrollIntoView({ behavior: "smooth" });
+                }}
+                style={{
+                  display: "block",
+                  fontFamily: "var(--font-mono)",
+                  fontSize: "11px",
+                  color: active ? "var(--accent)" : "var(--text-faint)",
+                  padding: "4px 8px",
+                  paddingLeft: h.level === 3 ? "16px" : "8px",
+                  textDecoration: "none",
+                  borderLeft: active ? "2px solid var(--accent)" : "2px solid transparent",
+                  transition: "color 0.15s",
+                }}
+              >
+                {h.text}
+              </a>
+            </li>
+          );
+        })}
       </ul>
     </nav>
   );

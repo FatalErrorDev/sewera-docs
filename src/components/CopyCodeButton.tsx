@@ -9,17 +9,19 @@ export function CopyCodeButton() {
 function applyButtonStyles(btn: HTMLButtonElement) {
   Object.assign(btn.style, {
     position: "absolute",
-    top: "0.5rem",
-    right: "0.75rem",
-    padding: "0.25rem 0.5rem",
-    fontSize: "0.7rem",
-    fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-    borderRadius: "0.375rem",
-    background: "var(--surface)",
-    border: "1px solid var(--border)",
-    color: "var(--text-muted)",
+    top: "10px",
+    right: "12px",
+    padding: "2px 6px",
+    fontSize: "10px",
+    fontFamily: "var(--font-mono)",
+    textTransform: "uppercase",
+    letterSpacing: "0.08em",
+    background: "none",
+    border: "none",
+    borderRadius: "0",
+    color: "var(--text-faint)",
     cursor: "pointer",
-    transition: "color 0.15s, background 0.15s",
+    transition: "color 0.15s",
     lineHeight: "1.4",
   });
 }
@@ -27,13 +29,13 @@ function applyButtonStyles(btn: HTMLButtonElement) {
 function applyLabelStyles(label: HTMLSpanElement) {
   Object.assign(label.style, {
     position: "absolute",
-    top: "0.5rem",
+    top: "10px",
     left: "1rem",
-    fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-    fontSize: "0.7rem",
+    fontFamily: "var(--font-mono)",
+    fontSize: "10px",
     textTransform: "uppercase",
-    letterSpacing: "0.05em",
-    color: "var(--text-muted)",
+    letterSpacing: "0.08em",
+    color: "var(--text-faint)",
     lineHeight: "1.4",
   });
 }
@@ -60,9 +62,11 @@ export function useCopyCodeButtons(containerRef: React.RefObject<HTMLElement | n
       document.body.removeChild(textarea);
     }
 
-    btn.textContent = "Copied!";
+    btn.textContent = "COPIED";
+    btn.style.color = "var(--accent)";
     setTimeout(() => {
-      btn.textContent = "Copy";
+      btn.textContent = "COPY";
+      btn.style.color = "var(--text-faint)";
     }, 2000);
   }, []);
 
@@ -90,15 +94,15 @@ export function useCopyCodeButtons(containerRef: React.RefObject<HTMLElement | n
 
       // Add copy button
       const btn = document.createElement("button");
-      btn.textContent = "Copy";
+      btn.textContent = "COPY";
       applyButtonStyles(btn);
       btn.addEventListener("mouseenter", () => {
-        btn.style.color = "var(--text-secondary)";
-        btn.style.background = "var(--border)";
+        btn.style.color = "var(--text-primary)";
       });
       btn.addEventListener("mouseleave", () => {
-        btn.style.color = "var(--text-muted)";
-        btn.style.background = "var(--surface)";
+        if (btn.textContent !== "COPIED") {
+          btn.style.color = "var(--text-faint)";
+        }
       });
       btn.addEventListener("click", () => handleCopy(pre, btn));
       pre.appendChild(btn);

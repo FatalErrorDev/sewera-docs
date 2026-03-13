@@ -1,18 +1,20 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { JetBrains_Mono, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { Shell } from "@/components/Shell";
 import { getAllCategories } from "@/lib/content";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
+  variable: "--font-mono",
+  weight: ["300", "400", "500", "700"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
+  variable: "--font-serif",
+  weight: ["400"],
 });
 
 export const metadata: Metadata = {
@@ -29,10 +31,12 @@ export default function RootLayout({
   const categories = getAllCategories();
 
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased bg-background text-text-primary`}
-      >
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${jetbrainsMono.variable} ${instrumentSerif.variable}`}
+    >
+      <body>
         <ThemeProvider>
           <Shell categories={categories}>{children}</Shell>
         </ThemeProvider>
