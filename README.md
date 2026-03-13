@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Claude Docs
 
-## Getting Started
+A Next.js documentation site that auto-renders `.md` files from a `content/` folder hierarchy into a polished, searchable, readable UI.
 
-First, run the development server:
+## Adding Content
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Drop Markdown files into the `content/` directory, organized by category:
+
+```
+content/
+├── tutorials/
+│   ├── 01-getting-started.md
+│   └── 02-claude-and-lovable.md
+└── useful_tools/
+    └── prompt-templates.md
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Each `.md` file should include YAML frontmatter:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```md
+---
+title: My Article Title
+description: A short description of the article.
+order: 1
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# Article content here...
+```
 
-## Learn More
+- **title** (required) — displayed in the sidebar and page header
+- **description** (optional) — shown on category cards and in search results
+- **order** (optional) — controls sort order within a category; defaults to alphabetical
 
-To learn more about Next.js, take a look at the following resources:
+### Folder naming
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Use lowercase with underscores for category and article filenames (e.g. `useful_tools/`, `claude_code.md`). The UI automatically renders them as human-friendly labels ("Useful Tools", "Claude Code").
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Local Development
 
-## Deploy on Vercel
+```bash
+npm install
+npm run dev
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Open [http://localhost:3000](http://localhost:3000).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Building for Production
+
+```bash
+npm run build
+npm start
+```
+
+## Deploying to Vercel
+
+Push to GitHub and connect the repo in the Vercel dashboard. It works out of the box.
+
+## Deploying to a Node Server
+
+```bash
+npm run build
+```
+
+Copy the `.next/standalone` directory to your server, then run:
+
+```bash
+node server.js
+```
+
+To deploy as a static export instead, change `output` to `'export'` in `next.config.ts` and add `images: { unoptimized: true }`.
