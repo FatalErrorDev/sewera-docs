@@ -94,9 +94,9 @@ export function SearchModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-start justify-center pt-[15vh]">
-      <div className="absolute inset-0 bg-black/60" onClick={onClose} />
-      <div className="relative w-full max-w-lg rounded-xl border border-foreground/10 bg-background shadow-2xl">
-        <div className="flex items-center gap-3 border-b border-foreground/10 px-4">
+      <div className="absolute inset-0 bg-black/40" onClick={onClose} />
+      <div className="relative w-full max-w-lg rounded-xl border border-border dark:border-accent/20 bg-background shadow-2xl font-sans">
+        <div className="flex items-center gap-3 border-b border-border px-4">
           <svg
             width="16"
             height="16"
@@ -104,7 +104,7 @@ export function SearchModal({
             fill="none"
             stroke="currentColor"
             strokeWidth="2"
-            className="shrink-0 text-foreground/40"
+            className="shrink-0 text-text-muted"
           >
             <circle cx="11" cy="11" r="8" />
             <line x1="21" y1="21" x2="16.65" y2="16.65" />
@@ -116,10 +116,10 @@ export function SearchModal({
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="Search documentation..."
-            className="flex-1 bg-transparent py-4 text-sm text-foreground outline-none placeholder:text-foreground/30"
+            className="flex-1 bg-transparent py-4 text-sm text-text-primary outline-none placeholder:text-text-muted"
           />
           <kbd
-            className="rounded border border-foreground/10 px-1.5 py-0.5 text-xs text-foreground/30 cursor-pointer"
+            className="rounded border border-border px-1.5 py-0.5 text-xs text-text-muted cursor-pointer"
             onClick={onClose}
           >
             Esc
@@ -127,7 +127,7 @@ export function SearchModal({
         </div>
         <div className="max-h-80 overflow-y-auto p-2">
           {results.length === 0 && query && (
-            <p className="px-3 py-8 text-center text-sm text-foreground/40">
+            <p className="px-3 py-8 text-center text-sm text-text-muted">
               No results found.
             </p>
           )}
@@ -137,12 +137,12 @@ export function SearchModal({
               onClick={() => navigate(r)}
               className={`w-full text-left rounded-lg px-3 py-2.5 transition-colors ${
                 i === selectedIndex
-                  ? "bg-accent/10 text-accent"
-                  : "text-foreground/70 hover:bg-foreground/5"
+                  ? "bg-accent/8 text-accent"
+                  : "text-text-secondary hover:bg-surface"
               }`}
             >
               <div className="text-sm font-medium">{r.title}</div>
-              <div className="mt-0.5 text-xs text-foreground/40">
+              <div className="mt-0.5 text-xs text-text-muted">
                 {formatName(r.category)}
                 {r.description && ` — ${r.description}`}
               </div>

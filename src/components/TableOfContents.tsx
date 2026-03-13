@@ -29,11 +29,11 @@ export function TableOfContents({ headings }: { headings: Heading[] }) {
   if (headings.length === 0) return null;
 
   return (
-    <nav className="hidden xl:block sticky top-24 ml-8 w-56 shrink-0 self-start">
-      <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-foreground/50">
+    <nav className="hidden xl:block sticky top-24 ml-8 w-56 shrink-0 self-start font-sans">
+      <p className="mb-3 text-xs font-medium uppercase tracking-wider text-text-muted">
         On this page
       </p>
-      <ul className="space-y-1.5 text-sm">
+      <ul className="space-y-1.5 border-l-2 border-accent/20 pl-3 text-sm">
         {headings.map((h) => (
           <li key={h.id} style={{ paddingLeft: h.level === 3 ? "0.75rem" : 0 }}>
             <a
@@ -45,7 +45,7 @@ export function TableOfContents({ headings }: { headings: Heading[] }) {
               className={`block py-0.5 transition-colors ${
                 activeId === h.id
                   ? "text-accent font-medium"
-                  : "text-foreground/50 hover:text-foreground/80"
+                  : "text-text-muted hover:text-text-secondary"
               }`}
             >
               {h.text}

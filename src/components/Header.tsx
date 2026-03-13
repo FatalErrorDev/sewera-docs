@@ -10,11 +10,11 @@ export function Header({
   onSearchOpen: () => void;
 }) {
   return (
-    <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b border-foreground/10 bg-background/80 px-4 backdrop-blur-md">
+    <header className="relative sticky top-0 z-30 flex h-14 items-center gap-4 border-b border-border bg-background/80 px-4 backdrop-blur-md font-sans">
       {/* Mobile hamburger */}
       <button
         onClick={onMenuToggle}
-        className="flex h-9 w-9 items-center justify-center rounded-md text-foreground/70 hover:bg-foreground/5 lg:hidden"
+        className="flex h-9 w-9 items-center justify-center rounded-md text-text-muted hover:bg-surface hover:text-text-primary lg:hidden"
         aria-label="Toggle menu"
       >
         <svg
@@ -34,8 +34,8 @@ export function Header({
       </button>
 
       {/* Logo */}
-      <a href="/" className="text-sm font-semibold text-foreground">
-        Claude Docs
+      <a href="/" className="text-sm font-bold tracking-tight text-accent">
+        Sewera Docs
       </a>
 
       <div className="flex-1" />
@@ -43,7 +43,7 @@ export function Header({
       {/* Search button */}
       <button
         onClick={onSearchOpen}
-        className="flex h-9 items-center gap-2 rounded-md border border-foreground/10 px-3 text-sm text-foreground/50 transition-colors hover:border-foreground/20 hover:text-foreground/70"
+        className="flex h-9 items-center gap-2 rounded-md border border-border px-3 text-sm text-text-muted transition-colors hover:border-text-muted hover:text-text-secondary"
       >
         <svg
           width="16"
@@ -59,12 +59,15 @@ export function Header({
           <line x1="21" y1="21" x2="16.65" y2="16.65" />
         </svg>
         <span className="hidden sm:inline">Search...</span>
-        <kbd className="hidden rounded border border-foreground/10 px-1.5 py-0.5 text-xs text-foreground/30 sm:inline">
+        <kbd className="hidden rounded border border-border px-1.5 py-0.5 text-xs text-text-muted sm:inline">
           Ctrl K
         </kbd>
       </button>
 
       <ThemeToggle />
+
+      {/* Decorative gradient line */}
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
     </header>
   );
 }

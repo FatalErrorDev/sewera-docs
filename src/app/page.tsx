@@ -9,26 +9,18 @@ export default function HomePage() {
   return (
     <div className="space-y-16">
       {/* Hero */}
-      <section className="relative pt-8 pb-4">
-        <div
-          className="absolute inset-0 -z-10 opacity-[0.03] dark:opacity-[0.06]"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle, currentColor 1px, transparent 1px)",
-            backgroundSize: "24px 24px",
-          }}
-        />
-        <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
+      <section className="pt-8 pb-4">
+        <h1 className="text-4xl font-bold tracking-tight sm:text-5xl bg-gradient-to-r from-[#03256c] to-[#1768ac] bg-clip-text text-transparent dark:from-[#06bee1] dark:to-white">
           Claude Documentation
         </h1>
-        <p className="mt-4 max-w-xl text-lg text-foreground/60">
+        <p className="mt-4 max-w-xl text-lg leading-relaxed text-text-secondary">
           Practical guides for building AI-powered support systems with Claude,
           Lovable, and Claude Code.
         </p>
         {firstArticle && (
           <Link
             href={`/docs/${firstArticle.slug.join("/")}`}
-            className="mt-6 inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-90"
+            className="mt-6 inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-accent-hover shadow-lg shadow-accent/25"
           >
             Get started
             <svg
@@ -50,7 +42,7 @@ export default function HomePage() {
 
       {/* Category cards */}
       <section>
-        <h2 className="mb-6 text-lg font-semibold">Browse by category</h2>
+        <h2 className="mb-6 text-lg font-semibold text-text-primary">Browse by category</h2>
         <div className="grid gap-4 sm:grid-cols-2">
           {categories.map((cat) => {
             const first = cat.articles[0];
@@ -58,17 +50,17 @@ export default function HomePage() {
               <Link
                 key={cat.name}
                 href={first ? `/docs/${first.slug.join("/")}` : "/"}
-                className="group rounded-xl border border-foreground/10 p-5 transition-colors hover:border-accent/30 hover:bg-accent/5"
+                className="group rounded-xl border border-border p-6 transition-all hover:border-accent/60 hover:bg-surface hover:shadow-lg hover:shadow-accent/10"
               >
-                <h3 className="font-semibold transition-colors group-hover:text-accent">
+                <h3 className="font-semibold text-text-primary transition-colors group-hover:text-accent">
                   {formatName(cat.name)}
                 </h3>
-                <p className="mt-1 text-sm text-foreground/50">
+                <p className="mt-1 text-sm text-text-muted">
                   {cat.articles.length} article
                   {cat.articles.length !== 1 && "s"}
                 </p>
                 {first && (
-                  <p className="mt-3 text-sm text-foreground/40">
+                  <p className="mt-3 text-sm text-text-muted">
                     Start with: {first.title}
                   </p>
                 )}

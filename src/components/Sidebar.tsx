@@ -17,10 +17,10 @@ export function Sidebar({
   const pathname = usePathname();
 
   const nav = (
-    <nav className="flex flex-col gap-6 p-6 pt-4">
+    <nav className="flex flex-col gap-6 p-6 pt-4 font-sans">
       {categories.map((cat) => (
         <div key={cat.name}>
-          <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-foreground/40">
+          <p className="mb-2 text-xs font-medium uppercase tracking-wider text-accent/70">
             {formatName(cat.name)}
           </p>
           <ul className="space-y-0.5">
@@ -34,8 +34,8 @@ export function Sidebar({
                     onClick={onClose}
                     className={`block rounded-md px-3 py-1.5 text-sm transition-colors ${
                       active
-                        ? "border-l-2 border-accent bg-accent/10 text-accent font-medium"
-                        : "text-foreground/60 hover:bg-foreground/5 hover:text-foreground"
+                        ? "border-l-2 border-accent bg-accent/12 text-accent font-medium"
+                        : "text-text-secondary hover:bg-surface hover:text-text-primary"
                     }`}
                   >
                     {article.title}
@@ -52,7 +52,7 @@ export function Sidebar({
   return (
     <>
       {/* Desktop sidebar */}
-      <aside className="hidden lg:block fixed left-0 top-14 bottom-0 w-64 overflow-y-auto border-r border-foreground/10 bg-background">
+      <aside className="hidden lg:block fixed left-0 top-14 bottom-0 w-64 overflow-y-auto border-r border-border bg-surface">
         {nav}
       </aside>
 
@@ -60,12 +60,12 @@ export function Sidebar({
       {open && (
         <div className="fixed inset-0 z-40 lg:hidden">
           <div
-            className="absolute inset-0 bg-black/50"
+            className="absolute inset-0 bg-black/40"
             onClick={onClose}
           />
           <aside className="absolute left-0 top-0 bottom-0 w-64 overflow-y-auto bg-background shadow-xl">
-            <div className="h-14 flex items-center px-6 border-b border-foreground/10">
-              <span className="font-semibold text-foreground">Claude Docs</span>
+            <div className="h-14 flex items-center px-6 border-b border-border">
+              <span className="font-semibold text-text-primary font-sans">Sewera Docs</span>
             </div>
             {nav}
           </aside>

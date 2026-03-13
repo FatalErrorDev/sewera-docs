@@ -43,7 +43,7 @@ export function Shell({
       />
       <SearchModal open={searchOpen} onClose={closeSearch} />
       <main className="lg:pl-64">
-        <div className="mx-auto max-w-4xl px-6 py-10">{children}</div>
+        <div className="mx-auto max-w-[720px] px-6 py-16">{children}</div>
       </main>
     </>
   );

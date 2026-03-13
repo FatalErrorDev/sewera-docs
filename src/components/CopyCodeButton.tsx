@@ -6,6 +6,38 @@ export function CopyCodeButton() {
   return null;
 }
 
+function applyButtonStyles(btn: HTMLButtonElement) {
+  Object.assign(btn.style, {
+    position: "absolute",
+    top: "0.5rem",
+    right: "0.75rem",
+    padding: "0.25rem 0.5rem",
+    fontSize: "0.7rem",
+    fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+    borderRadius: "0.375rem",
+    background: "var(--surface)",
+    border: "1px solid var(--border)",
+    color: "var(--text-muted)",
+    cursor: "pointer",
+    transition: "color 0.15s, background 0.15s",
+    lineHeight: "1.4",
+  });
+}
+
+function applyLabelStyles(label: HTMLSpanElement) {
+  Object.assign(label.style, {
+    position: "absolute",
+    top: "0.5rem",
+    left: "1rem",
+    fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+    fontSize: "0.7rem",
+    textTransform: "uppercase",
+    letterSpacing: "0.05em",
+    color: "var(--text-muted)",
+    lineHeight: "1.4",
+  });
+}
+
 export function useCopyCodeButtons(containerRef: React.RefObject<HTMLElement | null>) {
   const buttonsRef = useRef<Map<HTMLPreElement, HTMLButtonElement>>(new Map());
 
@@ -42,10 +74,32 @@ export function useCopyCodeButtons(containerRef: React.RefObject<HTMLElement | n
     pres.forEach((pre) => {
       if (buttonsRef.current.has(pre)) return;
       pre.style.position = "relative";
+
+      // Add language label
+      const code = pre.querySelector("code");
+      if (code) {
+        const langClass = Array.from(code.classList).find((c) => c.startsWith("language-"));
+        if (langClass) {
+          const lang = langClass.replace("language-", "");
+          const label = document.createElement("span");
+          label.textContent = lang;
+          applyLabelStyles(label);
+          pre.appendChild(label);
+        }
+      }
+
+      // Add copy button
       const btn = document.createElement("button");
       btn.textContent = "Copy";
-      btn.className =
-        "absolute top-2 right-2 px-2 py-1 text-xs rounded bg-white/10 hover:bg-white/20 text-white/70 hover:text-white transition-colors";
+      applyButtonStyles(btn);
+      btn.addEventListener("mouseenter", () => {
+        btn.style.color = "var(--text-secondary)";
+        btn.style.background = "var(--border)";
+      });
+      btn.addEventListener("mouseleave", () => {
+        btn.style.color = "var(--text-muted)";
+        btn.style.background = "var(--surface)";
+      });
       btn.addEventListener("click", () => handleCopy(pre, btn));
       pre.appendChild(btn);
       buttonsRef.current.set(pre, btn);

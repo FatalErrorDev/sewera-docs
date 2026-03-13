@@ -5,20 +5,43 @@
 
 @theme inline {
   --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-accent: #6366f1;
+  --color-surface: var(--surface);
+  --color-border: var(--border);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-code-bg: var(--code-bg);
+  --color-code-text: var(--code-text);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
 :root {
-  --background: #fafaf9;
-  --foreground: #171717;
+  --background: #f8faff;
+  --surface: #edf2fb;
+  --border: #c5d3e8;
+  --text-primary: #03256c;
+  --text-secondary: #2541b2;
+  --text-muted: #6889b4;
+  --accent: #1768ac;
+  --accent-hover: #03256c;
+  --code-bg: #e8eef8;
+  --code-text: #03256c;
 }
 
 .dark {
-  --background: #0d0d0d;
-  --foreground: #ededed;
+  --background: #03256c;
+  --surface: #0a3278;
+  --border: #1a4494;
+  --text-primary: #f0f4ff;
+  --text-secondary: #b8cde8;
+  --text-muted: #6889b4;
+  --accent: #06bee1;
+  --accent-hover: #3fd4f0;
+  --code-bg: #061f58;
+  --code-text: #b8cde8;
 }
 
 html {
@@ -27,8 +50,20 @@ html {
 
 body {
   background: var(--background);
-  color: var(--foreground);
+  color: var(--text-primary);
   font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+/* Selection styling */
+::selection {
+  background: var(--accent);
+  color: white;
+}
+
+/* Focus ring */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 /* Code block styling */
@@ -51,7 +86,6 @@ aside::-webkit-scrollbar-track {
 }
 
 aside::-webkit-scrollbar-thumb {
-  background: var(--foreground);
-  opacity: 0.1;
+  background: var(--border);
   border-radius: 4px;
 }

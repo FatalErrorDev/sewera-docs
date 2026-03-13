@@ -31,14 +31,14 @@ export default async function DocPage({ params }: Props) {
     <div className="flex items-start gap-0">
       <div className="min-w-0 flex-1">
         <div className="mb-6">
-          <p className="text-sm font-medium text-accent">
+          <p className="text-sm font-medium text-accent uppercase tracking-wide">
             {formatName(article.category)}
           </p>
-          <h1 className="mt-1 text-3xl font-bold tracking-tight">
+          <h1 className="mt-1 text-3xl font-bold tracking-tight text-text-primary">
             {article.title}
           </h1>
           {article.description && (
-            <p className="mt-2 text-foreground/50">{article.description}</p>
+            <p className="mt-2 text-text-secondary">{article.description}</p>
           )}
         </div>
         <ArticleRenderer contentHtml={article.contentHtml} />
