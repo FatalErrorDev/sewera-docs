@@ -1,19 +1,33 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef } from "react";
 
 export function CopyCodeButton() {
   return null;
 }
 
 export function useCopyCodeButtons(containerRef: React.RefObject<HTMLElement | null>) {
-  const [, setTick] = useState(0);
   const buttonsRef = useRef<Map<HTMLPreElement, HTMLButtonElement>>(new Map());
 
   const handleCopy = useCallback(async (pre: HTMLPreElement, btn: HTMLButtonElement) => {
     const code = pre.querySelector("code");
     if (!code) return;
-    await navigator.clipboard.writeText(code.innerText);
+    const text = code.innerText;
+
+    if (navigator?.clipboard?.writeText) {
+      await navigator.clipboard.writeText(text);
+    } else {
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.style.position = "fixed";
+      textarea.style.opacity = "0";
+      document.body.appendChild(textarea);
+      textarea.focus();
+      textarea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textarea);
+    }
+
     btn.textContent = "Copied!";
     setTimeout(() => {
       btn.textContent = "Copy";
@@ -37,6 +51,12 @@ export function useCopyCodeButtons(containerRef: React.RefObject<HTMLElement | n
       buttonsRef.current.set(pre, btn);
     });
 
-    setTick((t) => t + 1);
-  });
+    return () => {
+      buttonsRef.current.forEach((btn, pre) => {
+        btn.removeEventListener("click", () => handleCopy(pre, btn));
+        btn.remove();
+      });
+      buttonsRef.current.clear();
+    };
+  }, [containerRef, handleCopy]);
 }
