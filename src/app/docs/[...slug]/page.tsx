@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: Props) {
   const article = await getArticle(slug);
   if (!article) return {};
   return {
-    title: `${article.title} — Claude Docs`,
+    title: `${article.title} — Sewera Docs`,
     description: article.description,
   };
 }
