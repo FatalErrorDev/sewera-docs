@@ -1,7 +1,7 @@
 ---
 title: Czego NIE wolno wysyłać do AI? Praktyczny przewodnik bezpieczeństwa
 description: Co wysyłać do AI, a czego nie — instrukcja dla pracowników
-order: 5
+order: 1
 ---
 
 # Czego NIE wolno wysyłać do AI? Praktyczny przewodnik bezpieczeństwa

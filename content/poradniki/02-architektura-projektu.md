@@ -1,7 +1,7 @@
 ---
 title: Architektura projektu od zera
 description: 
-order: 1
+order: 2
 ---
 
 

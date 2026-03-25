@@ -1,7 +1,7 @@
 ---
 title: Getting Started with Claude
 description: Your first steps to using Claude effectively for building company support systems.
-order: 3
+order: 4
 ---
 
 # Getting Started with Claude

@@ -1,7 +1,7 @@
 ---
 title: Using Claude with Lovable
 description: How to combine Claude's AI with Lovable to build web-based support systems fast.
-order: 4
+order: 5
 ---
 
 # Using Claude with Lovable
