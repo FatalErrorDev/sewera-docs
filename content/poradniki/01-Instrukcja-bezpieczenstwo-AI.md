@@ -152,7 +152,7 @@ Dane finansowe mogą być wykorzystane do oszustw. Informacje przed publikacją 
 
 Jeśli musisz opisać konkretną sytuację, zamień wszystkie dane identyfikujące na fikcyjne.
 
-**Przed (ŹLEJ):**
+**Przed (ŹLE):**
 > Klient Jan Kowalski z firmy Budimex reklamuje dostawę 500 ton stali za 2,1 mln zł z 15 marca. Kontakt: j.kowalski@budimex.pl
 
 **Po (DOBRZE):**
