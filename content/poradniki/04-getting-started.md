@@ -10,6 +10,7 @@ Claude is a powerful AI assistant that can help you build intelligent support sy
 
 ## What You'll Learn
 
+- How to operate git after change of ownership
 - How to craft effective prompts for support scenarios
 - Setting up your first Claude-powered workflow
 - Best practices for production deployments
