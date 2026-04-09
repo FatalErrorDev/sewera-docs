@@ -10,7 +10,7 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeHighlight from "rehype-highlight";
 import rehypeStringify from "rehype-stringify";
 import { cache } from "react";
-import { Article, ArticleDetail, Category, Heading } from "@/types/content";
+import { Article, ArticleDetail, Category, Heading, Subcategory } from "@/types/content";
 import { formatName } from "@/lib/format";
 
 const contentDir = path.join(process.cwd(), "content");
@@ -28,8 +28,22 @@ export function getAllCategories(): Category[] {
   const categories: Category[] = entries
     .filter((e) => e.isDirectory())
     .map((dir) => {
-      const articles = getArticlesInCategory(dir.name);
-      return { name: dir.name, articles };
+      const catDir = path.join(contentDir, dir.name);
+      const catEntries = fs.readdirSync(catDir, { withFileTypes: true });
+
+      const articles = getArticlesInDir(catDir, [dir.name]);
+      const subcategories: Subcategory[] = catEntries
+        .filter((e) => e.isDirectory())
+        .map((sub) => {
+          const subDir = path.join(catDir, sub.name);
+          return {
+            name: sub.name,
+            articles: getArticlesInDir(subDir, [dir.name, sub.name]),
+          };
+        })
+        .filter((sub) => sub.articles.length > 0);
+
+      return { name: dir.name, articles, subcategories };
     });
 
   const { categoryOrder } = loadConfig();
@@ -46,28 +60,30 @@ export function getAllCategories(): Category[] {
 }
 
 export function getAllArticles(): Article[] {
-  return getAllCategories().flatMap((c) => c.articles);
+  return getAllCategories().flatMap((c) => [
+    ...c.articles,
+    ...c.subcategories.flatMap((s) => s.articles),
+  ]);
 }
 
-function getArticlesInCategory(category: string): Article[] {
-  const catDir = path.join(contentDir, category);
+function getArticlesInDir(dir: string, slugPrefix: string[]): Article[] {
   const files = fs
-    .readdirSync(catDir)
+    .readdirSync(dir)
     .filter((f) => f.endsWith(".md"))
     .sort();
 
   return files
     .map((file) => {
-      const filePath = path.join(catDir, file);
+      const filePath = path.join(dir, file);
       const raw = fs.readFileSync(filePath, "utf-8");
       const { data } = matter(raw);
       const slug = file.replace(/\.md$/, "");
       return {
-        slug: [category, slug],
+        slug: [...slugPrefix, slug],
         title: data.title || formatName(slug),
         description: data.description || "",
         order: data.order ?? 999,
-        category,
+        category: slugPrefix[0],
       };
     })
     .sort((a, b) => a.order - b.order || a.title.localeCompare(b.title));

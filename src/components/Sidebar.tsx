@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Category } from "@/types/content";
+import { Article, Category } from "@/types/content";
 import { formatName } from "@/lib/format";
 
 export function Sidebar({
@@ -15,6 +15,49 @@ export function Sidebar({
   onClose: () => void;
 }) {
   const pathname = usePathname();
+
+  function ArticleLink({ article, indent = false }: { article: Article; indent?: boolean }) {
+    const href = `/docs/${article.slug.join("/")}`;
+    const active = pathname === href;
+    const basePadding = indent ? 28 : 20;
+    return (
+      <li key={href}>
+        <Link
+          href={href}
+          onClick={onClose}
+          style={{
+            display: "block",
+            fontFamily: "var(--font-mono)",
+            fontSize: "12px",
+            color: active ? "var(--accent)" : "var(--text-secondary)",
+            padding: active
+              ? `6px ${basePadding - 2}px 6px ${basePadding - 2}px`
+              : `6px ${basePadding}px`,
+            textDecoration: "none",
+            borderLeft: active
+              ? "2px solid var(--accent)"
+              : "2px solid transparent",
+            background: active ? "var(--accent-dim)" : "transparent",
+            transition: "color 0.15s, background 0.15s",
+          }}
+          onMouseEnter={(e) => {
+            if (!active) {
+              e.currentTarget.style.color = "var(--text-primary)";
+              e.currentTarget.style.background = "var(--bg-elevated)";
+            }
+          }}
+          onMouseLeave={(e) => {
+            if (!active) {
+              e.currentTarget.style.color = "var(--text-secondary)";
+              e.currentTarget.style.background = "transparent";
+            }
+          }}
+        >
+          {article.title}
+        </Link>
+      </li>
+    );
+  }
 
   const nav = (
     <nav style={{ paddingTop: "24px" }}>
@@ -44,46 +87,33 @@ export function Sidebar({
             {formatName(cat.name)}
           </p>
           <ul style={{ listStyle: "none" }}>
-            {cat.articles.map((article) => {
-              const href = `/docs/${article.slug.join("/")}`;
-              const active = pathname === href;
-              return (
-                <li key={href}>
-                  <Link
-                    href={href}
-                    onClick={onClose}
-                    style={{
-                      display: "block",
-                      fontFamily: "var(--font-mono)",
-                      fontSize: "12px",
-                      color: active ? "var(--accent)" : "var(--text-secondary)",
-                      padding: active ? "6px 18px 6px 18px" : "6px 20px",
-                      textDecoration: "none",
-                      borderLeft: active
-                        ? "2px solid var(--accent)"
-                        : "2px solid transparent",
-                      background: active ? "var(--accent-dim)" : "transparent",
-                      transition: "color 0.15s, background 0.15s",
-                    }}
-                    onMouseEnter={(e) => {
-                      if (!active) {
-                        e.currentTarget.style.color = "var(--text-primary)";
-                        e.currentTarget.style.background = "var(--bg-elevated)";
-                      }
-                    }}
-                    onMouseLeave={(e) => {
-                      if (!active) {
-                        e.currentTarget.style.color = "var(--text-secondary)";
-                        e.currentTarget.style.background = "transparent";
-                      }
-                    }}
-                  >
-                    {article.title}
-                  </Link>
-                </li>
-              );
-            })}
+            {cat.articles.map((article) => (
+              <ArticleLink key={article.slug.join("/")} article={article} />
+            ))}
           </ul>
+          {cat.subcategories.map((sub) => (
+            <div key={sub.name} style={{ marginTop: "8px" }}>
+              <p
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: "9px",
+                  fontWeight: 500,
+                  color: "var(--text-faint)",
+                  letterSpacing: "0.1em",
+                  textTransform: "uppercase",
+                  padding: "0 28px",
+                  marginBottom: "2px",
+                }}
+              >
+                {formatName(sub.name)}
+              </p>
+              <ul style={{ listStyle: "none" }}>
+                {sub.articles.map((article) => (
+                  <ArticleLink key={article.slug.join("/")} article={article} indent />
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
       ))}
     </nav>

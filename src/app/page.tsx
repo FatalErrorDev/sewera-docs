@@ -89,7 +89,11 @@ export default function HomePage() {
           }}
         >
           {categories.map((cat) => {
-            const first = cat.articles[0];
+            const allArticles = [
+              ...cat.articles,
+              ...cat.subcategories.flatMap((s) => s.articles),
+            ];
+            const first = allArticles[0];
             return (
               <Link
                 key={cat.name}
@@ -121,12 +125,12 @@ export default function HomePage() {
                     margin: "8px 0",
                   }}
                 >
-                  {String(cat.articles.length).padStart(2, "0")}
+                  {String(allArticles.length).padStart(2, "0")}
                 </p>
 
                 {/* First 3 article titles */}
                 <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-                  {cat.articles.slice(0, 3).map((article) => (
+                  {allArticles.slice(0, 3).map((article) => (
                     <li
                       key={article.slug.join("/")}
                       style={{

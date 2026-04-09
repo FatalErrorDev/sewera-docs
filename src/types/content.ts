@@ -6,9 +6,15 @@ export type Article = {
   category: string;
 };
 
+export type Subcategory = {
+  name: string;
+  articles: Article[];
+};
+
 export type Category = {
   name: string;
   articles: Article[];
+  subcategories: Subcategory[];
 };
 
 export type ArticleDetail = Article & {
