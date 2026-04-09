@@ -1,8 +1,9 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Article, Category } from "@/types/content";
+import { Article, Category, Subcategory } from "@/types/content";
 import { formatName } from "@/lib/format";
 
 export function Sidebar({
@@ -15,6 +16,38 @@ export function Sidebar({
   onClose: () => void;
 }) {
   const pathname = usePathname();
+
+  // Track which subcategories are expanded (by "category/subcategory" key)
+  const [expanded, setExpanded] = useState<Set<string>>(() => new Set());
+
+  // Auto-expand the subcategory containing the active article
+  useEffect(() => {
+    for (const cat of categories) {
+      for (const sub of cat.subcategories) {
+        const key = `${cat.name}/${sub.name}`;
+        const hasActive = sub.articles.some(
+          (a) => pathname === `/docs/${a.slug.join("/")}`
+        );
+        if (hasActive) {
+          setExpanded((prev) => {
+            if (prev.has(key)) return prev;
+            const next = new Set(prev);
+            next.add(key);
+            return next;
+          });
+        }
+      }
+    }
+  }, [pathname, categories]);
+
+  function toggleSub(key: string) {
+    setExpanded((prev) => {
+      const next = new Set(prev);
+      if (next.has(key)) next.delete(key);
+      else next.add(key);
+      return next;
+    });
+  }
 
   function ArticleLink({ article, indent = false }: { article: Article; indent?: boolean }) {
     const href = `/docs/${article.slug.join("/")}`;
@@ -91,29 +124,58 @@ export function Sidebar({
               <ArticleLink key={article.slug.join("/")} article={article} />
             ))}
           </ul>
-          {cat.subcategories.map((sub) => (
-            <div key={sub.name} style={{ marginTop: "8px" }}>
-              <p
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: "9px",
-                  fontWeight: 500,
-                  color: "var(--text-faint)",
-                  letterSpacing: "0.1em",
-                  textTransform: "uppercase",
-                  padding: "0 28px",
-                  marginBottom: "2px",
-                }}
-              >
-                {sub.displayName}
-              </p>
-              <ul style={{ listStyle: "none" }}>
-                {sub.articles.map((article) => (
-                  <ArticleLink key={article.slug.join("/")} article={article} indent />
-                ))}
-              </ul>
-            </div>
-          ))}
+          {cat.subcategories.map((sub) => {
+            const key = `${cat.name}/${sub.name}`;
+            const isExpanded = expanded.has(key);
+            return (
+              <div key={sub.name} style={{ marginTop: "8px" }}>
+                <button
+                  onClick={() => toggleSub(key)}
+                  style={{
+                    all: "unset",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "6px",
+                    width: "100%",
+                    cursor: "pointer",
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "9px",
+                    fontWeight: 500,
+                    color: "var(--text-faint)",
+                    letterSpacing: "0.1em",
+                    textTransform: "uppercase",
+                    padding: "4px 28px",
+                    marginBottom: "2px",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.color = "var(--text-secondary)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.color = "var(--text-faint)";
+                  }}
+                >
+                  <span
+                    style={{
+                      display: "inline-block",
+                      fontSize: "8px",
+                      transition: "transform 0.15s",
+                      transform: isExpanded ? "rotate(90deg)" : "rotate(0deg)",
+                    }}
+                  >
+                    ▶
+                  </span>
+                  {sub.displayName}
+                </button>
+                {isExpanded && (
+                  <ul style={{ listStyle: "none" }}>
+                    {sub.articles.map((article) => (
+                      <ArticleLink key={article.slug.join("/")} article={article} indent />
+                    ))}
+                  </ul>
+                )}
+              </div>
+            );
+          })}
         </div>
       ))}
     </nav>
