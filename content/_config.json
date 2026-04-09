@@ -1,8 +1,11 @@
 {
   "categoryOrder": [
-	"claude",
+    "claude",
     "poradniki",
     "przydatne_narzedzia",
     "aidevs_3"
-  ]
+  ],
+  "displayNames": {
+    "podstawy-dla-kazdego": "Podstawy — dla każdego"
+  }
 }

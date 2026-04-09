@@ -8,6 +8,7 @@ export type Article = {
 
 export type Subcategory = {
   name: string;
+  displayName: string;
   articles: Article[];
 };
 

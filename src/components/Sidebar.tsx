@@ -105,7 +105,7 @@ export function Sidebar({
                   marginBottom: "2px",
                 }}
               >
-                {formatName(sub.name)}
+                {sub.displayName}
               </p>
               <ul style={{ listStyle: "none" }}>
                 {sub.articles.map((article) => (

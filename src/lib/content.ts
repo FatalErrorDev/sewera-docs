@@ -15,12 +15,13 @@ import { formatName } from "@/lib/format";
 
 const contentDir = path.join(process.cwd(), "content");
 
-function loadConfig(): { categoryOrder: string[] } {
+function loadConfig(): { categoryOrder: string[]; displayNames: Record<string, string> } {
   const configPath = path.join(contentDir, "_config.json");
   if (fs.existsSync(configPath)) {
-    return JSON.parse(fs.readFileSync(configPath, "utf-8"));
+    const raw = JSON.parse(fs.readFileSync(configPath, "utf-8"));
+    return { categoryOrder: raw.categoryOrder || [], displayNames: raw.displayNames || {} };
   }
-  return { categoryOrder: [] };
+  return { categoryOrder: [], displayNames: {} };
 }
 
 export function getAllCategories(): Category[] {
@@ -31,6 +32,7 @@ export function getAllCategories(): Category[] {
       const catDir = path.join(contentDir, dir.name);
       const catEntries = fs.readdirSync(catDir, { withFileTypes: true });
 
+      const { displayNames } = loadConfig();
       const articles = getArticlesInDir(catDir, [dir.name]);
       const subcategories: Subcategory[] = catEntries
         .filter((e) => e.isDirectory())
@@ -38,6 +40,7 @@ export function getAllCategories(): Category[] {
           const subDir = path.join(catDir, sub.name);
           return {
             name: sub.name,
+            displayName: displayNames[sub.name] || formatName(sub.name),
             articles: getArticlesInDir(subDir, [dir.name, sub.name]),
           };
         })
