@@ -61,8 +61,8 @@ export function Sidebar({
           style={{
             display: "block",
             fontFamily: "var(--font-mono)",
-            fontSize: "12px",
-            color: active ? "var(--accent)" : "var(--text-secondary)",
+            fontSize: "13px",
+            color: active ? "var(--accent)" : "var(--text-primary)",
             padding: active
               ? `6px ${basePadding - 2}px 6px ${basePadding - 2}px`
               : `6px ${basePadding}px`,
@@ -81,7 +81,7 @@ export function Sidebar({
           }}
           onMouseLeave={(e) => {
             if (!active) {
-              e.currentTarget.style.color = "var(--text-secondary)";
+              e.currentTarget.style.color = "var(--text-primary)";
               e.currentTarget.style.background = "transparent";
             }
           }}
@@ -108,10 +108,10 @@ export function Sidebar({
           <p
             style={{
               fontFamily: "var(--font-mono)",
-              fontSize: "10px",
-              fontWeight: 500,
-              color: "var(--text-muted)",
-              letterSpacing: "0.12em",
+              fontSize: "11px",
+              fontWeight: 600,
+              color: "var(--text-secondary)",
+              letterSpacing: "0.1em",
               textTransform: "uppercase",
               padding: "0 20px",
               marginBottom: "4px",
@@ -139,25 +139,25 @@ export function Sidebar({
                     width: "100%",
                     cursor: "pointer",
                     fontFamily: "var(--font-mono)",
-                    fontSize: "9px",
+                    fontSize: "11px",
                     fontWeight: 500,
-                    color: "var(--text-faint)",
-                    letterSpacing: "0.1em",
+                    color: "var(--text-muted)",
+                    letterSpacing: "0.08em",
                     textTransform: "uppercase",
                     padding: "4px 28px",
                     marginBottom: "2px",
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.color = "var(--text-secondary)";
+                    e.currentTarget.style.color = "var(--text-primary)";
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.color = "var(--text-faint)";
+                    e.currentTarget.style.color = "var(--text-muted)";
                   }}
                 >
                   <span
                     style={{
                       display: "inline-block",
-                      fontSize: "8px",
+                      fontSize: "9px",
                       transition: "transform 0.15s",
                       transform: isExpanded ? "rotate(90deg)" : "rotate(0deg)",
                     }}
