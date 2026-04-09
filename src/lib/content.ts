@@ -9,16 +9,11 @@ import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeHighlight from "rehype-highlight";
 import rehypeStringify from "rehype-stringify";
+import { cache } from "react";
 import { Article, ArticleDetail, Category, Heading } from "@/types/content";
+import { formatName } from "@/lib/format";
 
 const contentDir = path.join(process.cwd(), "content");
-
-export function formatName(raw: string): string {
-  return raw
-    .replace(/^\d+-/, "")
-    .replace(/[-_]/g, " ")
-    .replace(/\b\w/g, (c) => c.toUpperCase());
-}
 
 function loadConfig(): { categoryOrder: string[] } {
   const configPath = path.join(contentDir, "_config.json");
@@ -93,7 +88,7 @@ function extractHeadings(html: string): Heading[] {
   return headings;
 }
 
-export async function getArticle(
+export const getArticle = cache(async function getArticle(
   slug: string[]
 ): Promise<ArticleDetail | null> {
   const filePath = path.join(contentDir, ...slug) + ".md";
@@ -129,4 +124,4 @@ export async function getArticle(
     contentHtml,
     headings,
   };
-}
+});
