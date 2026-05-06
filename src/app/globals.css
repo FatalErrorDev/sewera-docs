@@ -124,6 +124,20 @@ pre code {
   background: transparent !important;
 }
 
+pre.mermaid {
+  background: transparent !important;
+  border: none;
+  padding: 0;
+  margin: 1.5rem 0;
+  text-align: center;
+  overflow-x: auto;
+}
+
+pre.mermaid svg {
+  max-width: 100%;
+  height: auto;
+}
+
 /* Inline code */
 :not(pre) > code {
   font-family: var(--font-mono);

@@ -2,9 +2,11 @@
 
 import { useRef } from "react";
 import { useCopyCodeButtons } from "./CopyCodeButton";
+import { useMermaid } from "./Mermaid";
 
 export function ArticleRenderer({ contentHtml }: { contentHtml: string }) {
   const ref = useRef<HTMLElement>(null);
+  useMermaid(ref, contentHtml);
   useCopyCodeButtons(ref);
 
   return (

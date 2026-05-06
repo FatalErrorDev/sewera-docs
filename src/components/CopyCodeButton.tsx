@@ -77,19 +77,19 @@ export function useCopyCodeButtons(containerRef: React.RefObject<HTMLElement | n
     const pres = container.querySelectorAll("pre");
     pres.forEach((pre) => {
       if (buttonsRef.current.has(pre)) return;
+      if (pre.classList.contains("mermaid")) return;
+      const code = pre.querySelector("code");
+      if (!code) return;
       pre.style.position = "relative";
 
       // Add language label
-      const code = pre.querySelector("code");
-      if (code) {
-        const langClass = Array.from(code.classList).find((c) => c.startsWith("language-"));
-        if (langClass) {
-          const lang = langClass.replace("language-", "");
-          const label = document.createElement("span");
-          label.textContent = lang;
-          applyLabelStyles(label);
-          pre.appendChild(label);
-        }
+      const langClass = Array.from(code.classList).find((c) => c.startsWith("language-"));
+      if (langClass) {
+        const lang = langClass.replace("language-", "");
+        const label = document.createElement("span");
+        label.textContent = lang;
+        applyLabelStyles(label);
+        pre.appendChild(label);
       }
 
       // Add copy button
