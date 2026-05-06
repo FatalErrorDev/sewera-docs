@@ -15,13 +15,21 @@ import { formatName } from "@/lib/format";
 
 const contentDir = path.join(process.cwd(), "content");
 
-function loadConfig(): { categoryOrder: string[]; displayNames: Record<string, string> } {
+function loadConfig(): { categoryOrder: string[] } {
   const configPath = path.join(contentDir, "_config.json");
   if (fs.existsSync(configPath)) {
     const raw = JSON.parse(fs.readFileSync(configPath, "utf-8"));
-    return { categoryOrder: raw.categoryOrder || [], displayNames: raw.displayNames || {} };
+    return { categoryOrder: raw.categoryOrder || [] };
   }
-  return { categoryOrder: [], displayNames: {} };
+  return { categoryOrder: [] };
+}
+
+function loadMeta(dir: string): { subcategories?: Record<string, string> } {
+  const metaPath = path.join(dir, "_meta.json");
+  if (fs.existsSync(metaPath)) {
+    return JSON.parse(fs.readFileSync(metaPath, "utf-8"));
+  }
+  return {};
 }
 
 export function getAllCategories(): Category[] {
@@ -32,15 +40,16 @@ export function getAllCategories(): Category[] {
       const catDir = path.join(contentDir, dir.name);
       const catEntries = fs.readdirSync(catDir, { withFileTypes: true });
 
-      const { displayNames } = loadConfig();
       const articles = getArticlesInDir(catDir, [dir.name]);
+      const catMeta = loadMeta(catDir);
+      const subDisplayNames = catMeta.subcategories || {};
       const subcategories: Subcategory[] = catEntries
         .filter((e) => e.isDirectory())
         .map((sub) => {
           const subDir = path.join(catDir, sub.name);
           return {
             name: sub.name,
-            displayName: displayNames[sub.name] || formatName(sub.name),
+            displayName: subDisplayNames[sub.name] || formatName(sub.name),
             articles: getArticlesInDir(subDir, [dir.name, sub.name]),
           };
         })

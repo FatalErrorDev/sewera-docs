@@ -1,14 +1,9 @@
 {
   "categoryOrder": [
     "claude",
+    "10xdevs",
     "poradniki",
     "przydatne_narzedzia",
     "aidevs_3"
-  ],
-  "displayNames": {
-    "1-podstawy-dla-kazdego": "Podstawy — dla każdego",
-    "2-swiadomy-uzytkownik": "Świadomy użytkownik",
-    "3-zaawansowany-uzytkownik": "Zaawansowany użytkownik",
-    "4-ekspert-w-pracy-z-ai": "Ekspert w pracy z AI"
-  }
+  ]
 }
