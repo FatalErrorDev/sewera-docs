@@ -17,12 +17,27 @@ export function Sidebar({
 }) {
   const pathname = usePathname();
 
-  // Track which subcategories are expanded (by "category/subcategory" key)
+  // Track which categories/subcategories are expanded
+  // Categories use key `cat:<name>`; subcategories use `${cat.name}/${sub.name}`
   const [expanded, setExpanded] = useState<Set<string>>(() => new Set());
 
-  // Auto-expand the subcategory containing the active article
+  // Auto-expand the category and subcategory containing the active article
   useEffect(() => {
     for (const cat of categories) {
+      const catKey = `cat:${cat.name}`;
+      const catHasActive =
+        cat.articles.some((a) => pathname === `/docs/${a.slug.join("/")}`) ||
+        cat.subcategories.some((sub) =>
+          sub.articles.some((a) => pathname === `/docs/${a.slug.join("/")}`)
+        );
+      if (catHasActive) {
+        setExpanded((prev) => {
+          if (prev.has(catKey)) return prev;
+          const next = new Set(prev);
+          next.add(catKey);
+          return next;
+        });
+      }
       for (const sub of cat.subcategories) {
         const key = `${cat.name}/${sub.name}`;
         const hasActive = sub.articles.some(
@@ -40,7 +55,7 @@ export function Sidebar({
     }
   }, [pathname, categories]);
 
-  function toggleSub(key: string) {
+  function toggleKey(key: string) {
     setExpanded((prev) => {
       const next = new Set(prev);
       if (next.has(key)) next.delete(key);
@@ -94,7 +109,10 @@ export function Sidebar({
 
   const nav = (
     <nav style={{ paddingTop: "24px" }}>
-      {categories.map((cat, catIndex) => (
+      {categories.map((cat, catIndex) => {
+        const catKey = `cat:${cat.name}`;
+        const catExpanded = expanded.has(catKey);
+        return (
         <div key={cat.name}>
           {catIndex > 0 && (
             <div
@@ -105,8 +123,16 @@ export function Sidebar({
               }}
             />
           )}
-          <p
+          <button
+            onClick={() => toggleKey(catKey)}
             style={{
+              all: "unset",
+              display: "flex",
+              alignItems: "center",
+              gap: "6px",
+              width: "100%",
+              boxSizing: "border-box",
+              cursor: "pointer",
               fontFamily: "var(--font-mono)",
               fontSize: "11px",
               fontWeight: 600,
@@ -116,9 +142,27 @@ export function Sidebar({
               padding: "0 20px",
               marginBottom: "4px",
             }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color = "var(--text-primary)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.color = "var(--text-secondary)";
+            }}
           >
+            <span
+              style={{
+                display: "inline-block",
+                fontSize: "9px",
+                transition: "transform 0.15s",
+                transform: catExpanded ? "rotate(90deg)" : "rotate(0deg)",
+              }}
+            >
+              ▶
+            </span>
             {formatName(cat.name)}
-          </p>
+          </button>
+          {catExpanded && (
+            <>
           <ul style={{ listStyle: "none" }}>
             {cat.articles.map((article) => (
               <ArticleLink key={article.slug.join("/")} article={article} />
@@ -130,7 +174,7 @@ export function Sidebar({
             return (
               <div key={sub.name} style={{ marginTop: "8px" }}>
                 <button
-                  onClick={() => toggleSub(key)}
+                  onClick={() => toggleKey(key)}
                   style={{
                     all: "unset",
                     display: "flex",
@@ -176,8 +220,11 @@ export function Sidebar({
               </div>
             );
           })}
+            </>
+          )}
         </div>
-      ))}
+        );
+      })}
     </nav>
   );
 

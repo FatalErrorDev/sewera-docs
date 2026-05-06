@@ -1,6 +1,6 @@
 ---
 title: "[1.2] Jak uczyć się i rozwijać z AI"
-description: "Jak korzystać z agentów bez utraty kompetencji. Rozdzielenie produktywności od nauki i unikanie pułapki „approve bez obrony"."
+description: 'Jak korzystać z agentów bez utraty kompetencji. Rozdzielenie produktywności od nauki i unikanie pułapki „approve bez obrony".'
 order: 2
 ---
 
