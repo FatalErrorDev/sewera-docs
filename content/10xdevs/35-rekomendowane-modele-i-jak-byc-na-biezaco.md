@@ -1,10 +1,7 @@
 ---
 title: "[3.5] Rekomendowane modele i jak być na bieżąco"
-course: "10xdevs-3-prework"
-language: "pl"
-source: "Przeprogramowani.pl"
-exported: "2026-05-06"
-format: "markdown"
+description: "Jak dobierać modele do zadania zamiast polować na czołówkę rankingów. Rekomendacje startowe i sposoby filtrowania szumu o nowych wersjach."
+order: 11
 ---
 
 W poprzedniej lekcji zdecydowałeś, w jakim języku rozmawiać z agentem. Ostatnia decyzja operacyjna przed startem M1 to wybór modelu.

@@ -1,10 +1,7 @@
 ---
 title: "[3.2] Wzorce i antywzorce promptowania"
-course: "10xdevs-3-prework"
-language: "pl"
-source: "Przeprogramowani.pl"
-exported: "2026-05-06"
-format: "markdown"
+description: "Różnice między promptem do chatbota a kontraktem z agentem. Praktyczne wzorce i antywzorce promptowania w pracy z kodem."
+order: 8
 ---
 
 W poprzedniej lekcji naszego preworku pokazaliśmy ci, jak LLMy przewidują kolejne tokeny i dlaczego ułomności takie jak zmyślanie logiki są wpisane w ich naturę.

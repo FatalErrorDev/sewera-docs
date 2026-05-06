@@ -1,10 +1,7 @@
 ---
-title: "[1.2] Chatbot vs Agent vs Harness — definicje"
-course: "10xdevs-3-prework"
-language: "pl"
-source: "Przeprogramowani.pl"
-exported: "2026-05-06"
-format: "markdown"
+title: "[1.1] Chatbot vs Agent vs Harness — definicje"
+description: "Trzy warstwy pracy z AI: model, agent i harness. Dlaczego ten sam model daje różne efekty w różnych środowiskach."
+order: 1
 ---
 
 W pierwszej lekcji naszego preworku przedstawiliśmy ci szeroki potencjał AI na miarę 2026 roku.

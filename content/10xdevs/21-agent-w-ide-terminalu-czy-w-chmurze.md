@@ -1,10 +1,7 @@
 ---
 title: "[2.1] Agent w IDE, Terminalu czy w Chmurze?"
-course: "10xdevs-3-prework"
-language: "pl"
-source: "Przeprogramowani.pl"
-exported: "2026-05-06"
-format: "markdown"
+description: "Trzy filozofie pracy z agentem: klasyczne IDE, terminal i Agent-Native IDE. Jak dobrać środowisko do swojego stylu pracy."
+order: 3
 ---
 
 Kolejne lekcje przygotują cię do pracy z agentem AI w trzech wcieleniach i pozwolą wybrać preferowane środowisko pracy w całym 10xDevs.

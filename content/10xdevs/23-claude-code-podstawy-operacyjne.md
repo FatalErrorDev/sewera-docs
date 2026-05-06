@@ -1,10 +1,7 @@
 ---
 title: "[2.3] Claude Code — Podstawy operacyjne"
-course: "10xdevs-3-prework"
-language: "pl"
-source: "Przeprogramowani.pl"
-exported: "2026-05-06"
-format: "markdown"
+description: "Podstawy pracy z Claude Code — agentem programistycznym w terminalu. Jak ocenić jakość harnessu i bezpiecznie zarządzać autonomią agenta."
+order: 5
 ---
 
 Claude Code to twój osobisty Agent programowania, wyposażony w topowe modele jak Opus czy Sonnet, które kontroluje jakościowy harness - warstwa narzędzi, bezpieczeństwa i kontroli wywołań.

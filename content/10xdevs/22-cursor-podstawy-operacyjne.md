@@ -1,10 +1,7 @@
 ---
 title: "[2.2] Cursor — Podstawy operacyjne"
-course: "10xdevs-3-prework"
-language: "pl"
-source: "Przeprogramowani.pl"
-exported: "2026-05-06"
-format: "markdown"
+description: "Podstawy operacyjne Cursora jako edytora kodu z wbudowanym agentem AI. Najważniejsze funkcje na start."
+order: 4
 ---
 
 Cześć, w tym filmie pokażę ci podstawy pracy z Cursorem - środowiskiem umożliwiającym programowanie z AI.

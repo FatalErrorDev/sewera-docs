@@ -1,10 +1,7 @@
 ---
 title: "[2.4] Agent-Native IDE — nowa generacja narzędzi"
-course: "10xdevs-3-prework"
-language: "pl"
-source: "Przeprogramowani.pl"
-exported: "2026-05-06"
-format: "markdown"
+description: "Nowa kategoria środowisk, w których centrum interfejsu jest sesja agenta, a nie plik z kodem. Po co istnieją i gdzie wymagają większej dyscypliny."
+order: 6
 ---
 
 W poprzednich lekcjach zobaczyłeś dwa najbardziej znane środowiska pracy z agentami - IDE oraz terminal. W tej lekcji robimy krok dalej: patrzymy na narzędzia, w których centrum interfejsu coraz częściej nie jest już plik z kodem, tylko sesja agenta.

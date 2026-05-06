@@ -1,10 +1,7 @@
 ---
 title: "[3.3] Cykl życia wątku i zarządzanie kontekstem"
-course: "10xdevs-3-prework"
-language: "pl"
-source: "Przeprogramowani.pl"
-exported: "2026-05-06"
-format: "markdown"
+description: "Context engineering w praktyce — kiedy czyścić, kompresować lub izolować kontekst i jak rozpoznać, że agent traci pamięć roboczą."
+order: 9
 ---
 
 W poprzedniej lekcji pokazaliśmy ci, jak dobry prompt potrafi naprowadzić agenta na właściwy tor i jaki prompt dzisiaj byłby już uważany za suboptymalny.

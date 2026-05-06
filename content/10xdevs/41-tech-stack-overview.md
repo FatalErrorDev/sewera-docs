@@ -1,10 +1,7 @@
 ---
 title: "[4.1] Tech Stack Overview"
-course: "10xdevs-3-prework"
-language: "pl"
-source: "Przeprogramowani.pl"
-exported: "2026-05-06"
-format: "markdown"
+description: "Co czyni stack agent-friendly i kiedy wybrać własny. Mapa decyzji dotycząca technologii do projektu kursowego."
+order: 12
 ---
 
 W poprzedniej lekcji uporządkowaliśmy wybór modeli. Teraz pojawia się drugie pytanie: "w jakim stacku powinienem zrobić projekt kursowy?".

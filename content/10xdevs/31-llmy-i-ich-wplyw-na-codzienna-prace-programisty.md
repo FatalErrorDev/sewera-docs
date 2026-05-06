@@ -1,10 +1,7 @@
 ---
 title: "[3.1] LLMy i ich wpływ na codzienną pracę programisty"
-course: "10xdevs-3-prework"
-language: "pl"
-source: "Przeprogramowani.pl"
-exported: "2026-05-06"
-format: "markdown"
+description: "Jak działają LLMy w środku — przewidywanie tokenów, ograniczenia i konsekwencje dla codziennej pracy programisty z AI."
+order: 7
 ---
 
 Początki pracy z agentami AI zawsze wyglądają tak samo - wklejasz potężny zrzut logów z błędem z produkcji i prosisz o naprawę, pisząc prosty prompt "zajmij się tym".

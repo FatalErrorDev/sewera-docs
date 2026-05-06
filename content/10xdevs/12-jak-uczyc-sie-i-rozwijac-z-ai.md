@@ -1,10 +1,7 @@
 ---
-title: "[1.3] Jak uczyć się i rozwijać z AI"
-course: "10xdevs-3-prework"
-language: "pl"
-source: "Przeprogramowani.pl"
-exported: "2026-05-06"
-format: "markdown"
+title: "[1.2] Jak uczyć się i rozwijać z AI"
+description: "Jak korzystać z agentów bez utraty kompetencji. Rozdzielenie produktywności od nauki i unikanie pułapki „approve bez obrony"."
+order: 2
 ---
 
 W poprzedniej lekcji o [Chatbot vs Agent vs Harness](/external/10xdevs-3-prework/pl/02) ustawiliśmy sobie prosty model: pracując z AI, nie oceniasz już tylko modelu, ale cały system pracy wokół niego.

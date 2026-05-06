@@ -1,10 +1,7 @@
 ---
 title: "[3.4] Język pracy z AI w programowaniu"
-course: "10xdevs-3-prework"
-language: "pl"
-source: "Przeprogramowani.pl"
-exported: "2026-05-06"
-format: "markdown"
+description: "Polski czy angielski w pracy z agentem? Inżynierska decyzja oparta o tokenizację, koszt API i precyzję pojęć technicznych."
+order: 10
 ---
 
 W poprzedniej lekcji preworku nauczyłeś się, jak zarządzać cyklem życia wątku i jak kontekst zużywa się z każdą turą. Teraz czas na decyzję, która ustawia ten budżet już na starcie - w jakim języku pisać do agenta?
